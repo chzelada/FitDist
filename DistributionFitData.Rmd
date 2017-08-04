@@ -4,7 +4,7 @@ output: html_notebook
 ---
 
 
-# Not all data is normally distributed
+## Not all data is normally distributed
 
 ```{r}
 random_normal <- rnorm(n = 1500)
