@@ -1,0 +1,80 @@
+---
+title: "Fitting a distribution to Data"
+output: html_notebook
+---
+
+
+# Not all data is normally distributed
+
+```{r}
+random_normal <- rnorm(n = 1500)
+hist(random_normal)
+```
+
+```{r}
+#install.packages("fitdistrplus")
+library(fitdistrplus)
+```
+
+
+```{r}
+data("groundbeef")
+str(groundbeef)
+```
+
+
+```{r}
+plotdist(groundbeef$serving, histo = TRUE, demp = TRUE)
+```
+
+
+
+```{r}
+descdist(groundbeef$serving,boot = 100)
+```
+
+
+
+
+```{r}
+scores <- rnorm(n = 1000, mean = 61, sd=10)
+#plotdist(scores, histo = TRUE, demp = TRUE)
+descdist(scores, boot = 100)
+```
+
+
+```{r}
+random_uniform <- runif(500)
+#plotdist(random_uniform, histo = TRUE, demp = TRUE)
+descdist(random_uniform, boot = 100)
+```
+
+
+
+```{r}
+random_exponential <- rexp(1000, 2)
+#plotdist(random_exponential, histo = TRUE, demp = TRUE)
+descdist(random_exponential, boot = 100)
+```
+
+
+```{r}
+fw <- fitdist(groundbeef$serving, "weibull")
+fg <- fitdist(groundbeef$serving, "gamma")
+fln <- fitdist(groundbeef$serving, "lnorm")
+par(mfrow = c(2, 2))
+plot.legend <- c("Weibull", "lognormal", "gamma")
+denscomp(list(fw, fln, fg), legendtext = plot.legend)
+qqcomp(list(fw, fln, fg), legendtext = plot.legend)
+cdfcomp(list(fw, fln, fg), legendtext = plot.legend)
+ppcomp(list(fw, fln, fg), legendtext = plot.legend)
+```
+
+
+
+
+
+
+
+
+
